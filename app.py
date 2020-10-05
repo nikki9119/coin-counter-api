@@ -16,10 +16,10 @@ app = Flask(__name__)
 # MODEL_PATH = 'rps.h5'
 
 # model = load_model('rps.h5')
-with open('models/model_config.json') as json_file:
+with open('model/model_config.json') as json_file:
     json_config = json_file.read()
     model = model_from_json(json_config)
-model.load_weights('models/rps_weights.h5')
+model.load_weights('model/rps_weights.h5')
 # model._make_predict_function()
 
 def model_predict(img_path, model):
@@ -45,7 +45,7 @@ def hello():
 # def helloname():
 #     return jsonify({"about":"Hello World, I am Nikhil"})
 
-@app.route("/predict",methods=['POST'])
+@app.route("/predict",methods=['GET','POST'])
 def upload():
     if request.method == 'POST':
         # Get the file from post request
