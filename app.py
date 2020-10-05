@@ -1,7 +1,7 @@
 import keras_preprocessing
 from keras_preprocessing import image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model, model_from_json
 # from keras.applications.imagenet_utils import preprocess_input, decode_predictions
 
 import os
@@ -15,7 +15,11 @@ app = Flask(__name__)
 
 # MODEL_PATH = 'rps.h5'
 
-model = load_model('rps.h5')
+# model = load_model('rps.h5')
+with open('model_config.json') as json_file:
+    json_config = json_file.read()
+    new_model = model_from_json(json_config)
+new_model.load_weights('rps_weights.h5')
 # model._make_predict_function()
 
 def model_predict(img_path, model):
