@@ -16,10 +16,10 @@ app = Flask(__name__)
 # MODEL_PATH = 'rps.h5'
 
 # model = load_model('rps.h5')
-with open('model_config.json') as json_file:
+with open('models/model_config.json') as json_file:
     json_config = json_file.read()
-    new_model = model_from_json(json_config)
-new_model.load_weights('rps_weights.h5')
+    model = model_from_json(json_config)
+model.load_weights('models/rps_weights.h5')
 # model._make_predict_function()
 
 def model_predict(img_path, model):
