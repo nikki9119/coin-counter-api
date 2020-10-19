@@ -8,11 +8,11 @@ import numpy as np
 import base64
 
 from flask import Flask, jsonify, request
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-model = load_model('rps.h5')
+model = load_model('./rps.h5')
 print('Model loaded')
 
 def model_predict(img_path, model):
