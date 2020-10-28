@@ -116,17 +116,10 @@ def detect(save_img=False):
                     flag = True
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        # with open(txt_path + '.txt', 'a') as f:
-                        #     f.write(('%g ' * 5 + '\n') % (cls, *xywh))  # label format
                         pred_str = ('%g ' * 5) % (cls, *xywh)
                         pred_list = pred_str.split(' ')
                         pred_list.pop()
                         pred_list.append('%.2f'%(conf))
-                        # print(pred_list)
-                        # pred_lists.append(pred_list)
-                        # print('%.2f'%(conf))
-                        # print(pred_lists)
-                        # flag = True
                         for item in pred_lists:
                             if abs(float(item[1])-float(pred_list[1]))<0.05 and abs(float(item[2])-float(pred_list[2]))<0.05 and abs(float(item[3])-float(pred_list[3]))<0.05 and abs(float(item[4])-float(pred_list[4]))<0.05:
                                 if(float(pred_list[5])<float(item[5])):
@@ -141,7 +134,6 @@ def detect(save_img=False):
                         plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                 file_list_preds = []
                 for item in pred_lists:
-                    # print(item)
                     pred_str = ' '.join(item)
                     file_list_preds.append(pred_str+'\n')
                 with open(txt_path + '.txt','w') as fp:
@@ -204,10 +196,6 @@ def encode_image():
 def hello():
     return jsonify({"about":"Hello World"})
 
-@app.route("/get_name")
-def helloname():
-    return jsonify({"about":"Hello World, I am Nikhil"})
-
 @app.route("/predict",methods=['GET','POST'])
 def upload():
     print('Inside Upload')
@@ -220,26 +208,10 @@ def upload():
         filename = './INPUTS/image.jpg'
         with open(filename, 'wb') as f:
             f.write(imgdata)
-
-        # preds = model_predict(filename, model)
         detect()
         one,two,five,ten = parsefromtext()
         total = (one*1)+(two*2)+(five*5)+(ten*10)
         imgstring = encode_image()
-        # print(preds)
-        # max = 0.0
-        # if(preds[0][0] and preds[0][0] > max):
-        #     max = preds[0][0]
-        #     value = 1
-        # if(preds[0][1] and preds[0][1] > max):
-        #     max = preds[0][1]
-        #     value = 10
-        # if(preds[0][2] and preds[0][2] > max):
-        #     max = preds[0][2]
-        #     value = 2
-        # if(preds[0][3] and preds[0][3] > max):
-        #     max = preds[0][3]
-        #     value = 5
         return jsonify({
             "preds":"ok",
             "results":{
@@ -271,11 +243,4 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     print(opt)
 
-    # with torch.no_grad():
-    #     if opt.update:  # update all models (to fix SourceChangeWarning)
-    #         for opt.weights in ['yolov5s.pt', 'yolov5m.pt', 'yolov5l.pt', 'yolov5x.pt']:
-    #             detect()
-    #             strip_optimizer(opt.weights)
-    #     else:
-    #         detect()
     app.run(debug=True,host='0.0.0.0')
