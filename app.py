@@ -243,4 +243,9 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     print(opt)
 
+    if 'INPUTS' not in os.listdir():
+        os.mkdir('INPUTS')
+    if 'OUTPUTS' not in os.listdir():
+        os.mkdir('OUTPUTS')
+
     app.run(debug=True,host='0.0.0.0')
