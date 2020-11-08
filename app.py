@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 import base64
 from detect import Detect
 
@@ -45,27 +45,30 @@ def upload():
         print('Inside Post')
 
         f = request.get_json()
-        imgstring = f['image']
-        imgdata = base64.b64decode(imgstring)
-        filename = './INPUTS/image.jpg'
-        with open(filename, 'wb') as f:
-            f.write(imgdata)
-        Detect()
-        one,two,five,ten = parsefromtext()
-        total = (one*1)+(two*2)+(five*5)+(ten*10)
-        imgstring = encode_image()
-        return jsonify({
-            "preds":"ok",
-            "results":{
-                "one":one,
-                "two":two,
-                "five":five,
-                "ten":ten,
-                "total":total
-            },
-            "image_en":imgstring
-        })
-    return 'Invalid request'
+        try:
+            imgstring = f['image']
+            imgdata = base64.b64decode(imgstring)
+            filename = './INPUTS/image.jpg'
+            with open(filename, 'wb') as f:
+                f.write(imgdata)
+            Detect()
+            one,two,five,ten = parsefromtext()
+            total = (one*1)+(two*2)+(five*5)+(ten*10)
+            imgstring = encode_image()
+            return jsonify({
+                "preds":"ok",
+                "results":{
+                    "one":one,
+                    "two":two,
+                    "five":five,
+                    "ten":ten,
+                    "total":total
+                },
+                "image_en":imgstring
+            })
+        except:
+            return Response('Request format invalid.',status=400)
+    return Response('Request format invalid',status=400)
 
 if __name__ ==  '__main__':
     app.run()
