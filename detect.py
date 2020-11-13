@@ -17,7 +17,7 @@ from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 def Detect(save_img=False):
     out, source, weights, view_img, save_txt, imgsz = \
-        '', '', '', False, '', 640
+        '', '', '', False, '', 416
     webcam = source.isnumeric() or source.startswith(('rtsp://', 'rtmp://', 'http://')) or source.endswith('.txt')
 
     weights = 'weights.pt'
