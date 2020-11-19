@@ -4,7 +4,7 @@ This is purely an API which receives an image and identifies the coins present i
 
 ## Request format
 
-The request must be sent to the `\predict` route.
+The request must be sent to the `/predict` route.
 
 The API accepts POST request which should be in JSON format as given below,
 
