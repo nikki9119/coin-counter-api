@@ -1,6 +1,6 @@
-# coin_detector_backend
+# coin-counter-api
 
-This is purely an API which receives an image and identifies the coins present in the image.
+This is an API which receives an image and identifies the coins present in the image (Indian coins).
 
 ## Request format
 
@@ -14,7 +14,7 @@ The API accepts POST request which should be in JSON format as given below,
 }
 ```
 
-The image should be encoded to a base64 format string for transmission. You can encode your image using *base64* module in python or use this url
+The image should be encoded to a base64 format string for transmission. You can encode your image using the **base64** module in python or use this url,
 
 https://base64.guru/converter/encode/image
 
