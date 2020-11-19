@@ -20,24 +20,16 @@ https://base64.guru/converter/encode/image
 
 The API sends the response of the following JSON format,
 
-`{
-  
+```json
+{
   "preds":"ok",
-  
-  "results":{
-    
-    "one": number of one rupee coins,
-    
-    "two": number of two rupee coins,
-    
-    "five": number of five rupee coins,
-    
-    "ten": number of ten rupee coins,
-    
+  "results":{   
+    "one": number of one rupee coins,    
+    "two": number of two rupee coins,    
+    "five": number of five rupee coins,    
+    "ten": number of ten rupee coins,    
     "total": total value of the coins
-  
-  },
-  
+  },  
   "image_en": base64 encoded string of the image with detected coins
-
-}`
+}
+```
